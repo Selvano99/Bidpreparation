@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* ===== VARIABILI COLORE ===== */
+    :root {
+      --primary:  {{ primary_color }};
+      --accent:   {{ accent_color }};
+      --text:     #1a1a2e;
+      --muted:    #6b7280;
+      --border:   #d1d5db;
+      --white:    #ffffff;
+    }
+
+    /* ===== RESET E BASE ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      color: var(--text);
+      background: var(--white);
+      width: 210mm;
+      min-height: 297mm;
+      padding: 0;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 18px 28px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .header-left {}
+    .header-gara {
+      font-size: 8pt;
+      opacity: 0.75;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .header-title {
+      font-size: 15pt;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .header-right {
+      text-align: right;
+    }
+    .item-badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 9pt;
+      text-align: center;
+    }
+    .item-badge-label {
+      font-size: 7pt;
+      opacity: 0.7;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .item-badge-number {
+      font-size: 16pt;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    /* ===== BODY CONTENT ===== */
+    .content {
+      padding: 20px 28px;
+    }
+
+    /* ===== META INFO ===== */
+    .meta-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .meta-card {
+      flex: 1;
+      background: var(--accent);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 4px 4px 0;
+      padding: 8px 12px;
+    }
+    .meta-label {
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .meta-value {
+      font-size: 10pt;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ===== SEZIONE SPECIFICHE ===== */
+    .section-title {
+      font-size: 9pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 5px;
+      margin-bottom: 12px;
+    }
+
+    /* Specifiche in tabella (se strutturate come chiave: valore) */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .specs-table tr:nth-child(even) {
+      background: var(--accent);
+    }
+    .specs-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .specs-table td.spec-key {
+      font-weight: 600;
+      width: 38%;
+      color: var(--text);
+      font-size: 9pt;
+    }
+    .specs-table td.spec-val {
+      color: #374151;
+      font-size: 9pt;
+    }
+
+    /* Specifiche in testo libero */
+    .specs-text {
+      background: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 14px 16px;
+      font-size: 9pt;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 20px;
+    }
+
+    /* ===== NOTE ===== */
+    .notes-box {
+      border: 1px dashed var(--border);
+      border-radius: 4px;
+      padding: 10px 14px;
+      min-height: 50px;
+      margin-bottom: 20px;
+    }
+    .notes-box p {
+      color: var(--muted);
+      font-size: 8.5pt;
+      font-style: italic;
+    }
+
+    /* ===== WATERMARK BOZZA ===== */
+    {% if is_draft %}
+    .draft-watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-35deg);
+      font-size: 72pt;
+      font-weight: 900;
+      color: rgba(200, 0, 0, 0.07);
+      pointer-events: none;
+      z-index: 0;
+      text-transform: uppercase;
+      letter-spacing: 8px;
+    }
+    {% endif %}
+
+    /* ===== FOOTER ===== */
+    .footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      border-top: 1px solid var(--border);
+      padding: 8px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7.5pt;
+      color: var(--muted);
+      background: var(--white);
+    }
+    .footer-company {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* ===== STAMPA ===== */
+    @page {
+      size: A4;
+      margin: 0 0 25mm 0;
+    }
+    @media print {
+      .content { padding-bottom: 30mm; }
+    }
+  </style>
+</head>
+<body>
+
+  {% if is_draft %}
+  <div class="draft-watermark">BOZZA</div>
+  {% endif %}
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-gara">{{ gara_name }}</div>
+      <div class="header-title">{{ description }}</div>
+    </div>
+    <div class="header-right">
+      <div class="item-badge">
+        <div class="item-badge-label">Item N°</div>
+        <div class="item-badge-number">{{ item_number }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- META INFO -->
+    {% if manufacturer or model or quantity %}
+    <div class="meta-row">
+      {% if manufacturer %}
+      <div class="meta-card">
+        <div class="meta-label">Produttore</div>
+        <div class="meta-value">{{ manufacturer }}</div>
+      </div>
+      {% endif %}
+      {% if model %}
+      <div class="meta-card">
+        <div class="meta-label">Modello / Codice</div>
+        <div class="meta-value">{{ model }}</div>
+      </div>
+      {% endif %}
+      {% if quantity %}
+      <div class="meta-card">
+        <div class="meta-label">Quantità richiesta</div>
+        <div class="meta-value">{{ quantity }}</div>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- CARATTERISTICHE TECNICHE -->
+    <div class="section-title">Caratteristiche Tecniche</div>
+
+    {% if specs_structured %}
+      <!-- Tabella chiave-valore se le specifiche sono strutturate -->
+      <table class="specs-table">
+        {% for key, val in specs_structured.items() %}
+        <tr>
+          <td class="spec-key">{{ key }}</td>
+          <td class="spec-val">{{ val }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <!-- Testo libero -->
+      <div class="specs-text">{{ tech_specs }}</div>
+    {% endif %}
+
+    <!-- NOTE AGGIUNTIVE -->
+    <div class="section-title">Note / Osservazioni</div>
+    <div class="notes-box">
+      {% if notes %}
+        <p>{{ notes }}</p>
+      {% else %}
+        <p>— nessuna nota —</p>
+      {% endif %}
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span class="footer-company">{{ company_name }}</span>
+    <span>Item {{ item_number }} &nbsp;|&nbsp; {{ gara_name }}</span>
+    <span>Generato il {{ generated_date }}</span>
+  </div>
+
+</body>
+</html>
